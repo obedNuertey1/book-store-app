@@ -1,24 +1,31 @@
 import { config } from "dotenv";
 import express from "express";
+import mongoose from "mongoose";
 import cors from "cors";
+import bookRoutes from "./routes/book-routes";
+
 
 config();
 
 const app = express();
+mongoose.connect(process.env.MONGO_URI).then(()=>{
+    console.log("Connected to MongoDB");
+}).catch((err)=>{
+    console.error(err);
+})
+app.use("/", (_, __, next)=>{
+    // res.send("This is our starting app");
+    console.log("This is our starting app");
+    next();
+})
 app.use(cors());
 
+
+// all books routes
+app.use("/api/books", bookRoutes);
+
 const PORT = process.env.PORT || 3000;
-
-// @ts-ignore
-app.get("/", (req, res)=>{
-    res.send("<h1>Welcome to the Home page</h1>");
-});
-
-// @ts-ignore
-app.get("/next", (req, res)=>{
-    res.send("<h1>Welcome to the next page</h1>");
-});
-
 app.listen(PORT, ()=>{
     console.log(`Server is running on port: ${PORT}`);
 });
+
