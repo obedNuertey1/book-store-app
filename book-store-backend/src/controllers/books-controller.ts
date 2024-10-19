@@ -50,4 +50,20 @@ export default class BooksController {
         return res.status(200).json({book});
     }
 
+    public async updateBook(req:Request, res:Response){
+        console.log("This route will update a book");
+        const {id} = req.params;
+        const {name, author, description, price, available} = req.body;
+        let book:any;
+        try{
+            book = await Book.findByIdAndUpdate(id, {name, author, description, price, available});
+        }catch(e){
+            console.error(e.message);
+        }
+        if(!book){
+            return res.status(404).json({message: "Book not found"});
+        }
+        return res.status(200).json({book});
+    }
+
 }

@@ -19,4 +19,8 @@ router.get(`/${ROOT_URL}/:id`, async (req, res)=>{
     await booksController.getBookById(req, res);
 })
 
+router.put(`/${ROOT_URL}/:id`, async (req, res)=>{
+    await booksController.updateBook(req, res);
+})
+
 export default router;
