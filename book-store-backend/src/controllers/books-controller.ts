@@ -17,5 +17,20 @@ export default class BooksController {
         return res.status(200).json({books});
     }
 
-    
+    public async addBook(req:any, res:any){
+        console.log("This route will add a book");
+        const {name, author, description, price, available} = req.body;
+        let book:any;
+        try{
+            book = new Book({name, author, description, price, available});
+            await book.save();
+        }catch(e){
+            console.error(e.message);
+        }
+        
+        if(!book){
+            return res.status(500).json({message: "Failed to add book"});
+        }
+        return res.status(201).json({book});
+    }
 }
