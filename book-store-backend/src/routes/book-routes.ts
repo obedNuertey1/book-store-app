@@ -5,12 +5,18 @@ const router = express.Router();
 
 const booksController = new BooksController();
 
-router.get("/", async (_, res)=>{
-    await booksController.getAllBooks(_, res)
+const ROOT_URL = "api/books";
+
+router.get(`/${ROOT_URL}`, async (_, res)=>{
+    await booksController.getAllBooks(_, res);
 })
 
-router.post("/", async (req, res)=>{
+router.post(`/${ROOT_URL}`, async (req, res)=>{
     await booksController.addBook(req, res);
+})
+
+router.get(`/${ROOT_URL}/:id`, async (req, res)=>{
+    await booksController.getBookById(req, res);
 })
 
 export default router;

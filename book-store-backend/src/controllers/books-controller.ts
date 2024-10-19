@@ -1,9 +1,10 @@
 import Book from "../model/Book";
+import {Request, Response} from "express";
 
 export default class BooksController {
     constructor (){}
 
-    public async getAllBooks(__, res:any){
+    public async getAllBooks(__, res:Response){
         console.log("This route will provide all the books");
         let books:any;
         try{
@@ -17,7 +18,7 @@ export default class BooksController {
         return res.status(200).json({books});
     }
 
-    public async addBook(req:any, res:any){
+    public async addBook(req:Request, res:Response){
         console.log("This route will add a book");
         const {name, author, description, price, available} = req.body;
         let book:any;
@@ -33,4 +34,20 @@ export default class BooksController {
         }
         return res.status(201).json({book});
     }
+
+    public async getBookById(req:Request, res:Response){
+        console.log("This route will get a book by id");
+        const {id} = req.params;
+        let book:any;
+        try{
+            book = await Book.findById(id);
+        }catch(e){
+            console.error(e.message);
+        }
+        if(!book){
+            return res.status(404).json({message: "Book not found"});
+        }
+        return res.status(200).json({book});
+    }
+
 }

@@ -19,10 +19,11 @@ app.use("/", (_, __, next)=>{
     next();
 })
 app.use(cors());
+app.use(express.json())
 
 
 // all books routes
-app.use("/api/books", bookRoutes);
+app.use("/", bookRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, ()=>{
