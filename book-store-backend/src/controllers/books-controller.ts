@@ -20,10 +20,10 @@ export default class BooksController {
 
     public async addBook(req:Request, res:Response){
         console.log("This route will add a book");
-        const {name, author, description, price, available} = req.body;
+        const {name, author, description, price, available, image} = req.body;
         let book:any;
         try{
-            book = new Book({name, author, description, price, available});
+            book = new Book({name, author, description, price, available, image});
             await book.save();
         }catch(e){
             console.error(e.message);
@@ -53,10 +53,10 @@ export default class BooksController {
     public async updateBook(req:Request, res:Response){
         console.log("This route will update a book");
         const {id} = req.params;
-        const {name, author, description, price, available} = req.body;
+        const {name, author, description, price, available, image} = req.body;
         let book:any;
         try{
-            book = await Book.findByIdAndUpdate(id, {name, author, description, price, available});
+            book = await Book.findByIdAndUpdate(id, {name, author, description, price, available, image});
         }catch(e){
             console.error(e.message);
         }
