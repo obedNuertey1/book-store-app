@@ -78,7 +78,7 @@ export default class BooksController {
         if(!book){
             return res.status(404).json({message: "Unable to delete book"});
         }
-        return res.status(200).json({book});
+        return res.status(200).json({message: "Book deleted successfully"});
     }
 
 }
