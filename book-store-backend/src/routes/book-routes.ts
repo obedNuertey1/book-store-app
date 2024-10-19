@@ -23,4 +23,8 @@ router.put(`/${ROOT_URL}/:id`, async (req, res)=>{
     await booksController.updateBook(req, res);
 })
 
+router.delete(`/${ROOT_URL}/:id`, async (req, res)=>{
+    await booksController.deleteBook(req, res);
+})
+
 export default router;
